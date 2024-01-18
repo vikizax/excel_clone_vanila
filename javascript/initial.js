@@ -86,7 +86,7 @@ function createCellPropertiesStorage() {
          * 
          * @param {Number} row 
          * @param {Number} column 
-         * @returns {{ bold: Boolean,italic: Boolean,underline: Boolean,alignment: String,fontFamily: String,fontSize: String,fontColor: String,BGColor: String }}
+         * @returns {cellProperties}
          */
         getCellProperties: (row, column) => {
             return cellsProperties[row][column]
