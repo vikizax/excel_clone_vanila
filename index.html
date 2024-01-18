@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet"
+        href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
+    <title>Excel</title>
+</head>
+
+<body>
+
+    <div class="page-actions-container">
+        <div class="page-action">Home</div>
+        <div class="page-action">File</div>
+        <div class="page-action">Insert</div>
+        <div class="page-action">Layout</div>
+        <div class="page-action">Help</div>
+    </div>
+
+    <div class="cellprop-actions-container">
+
+        <span class="material-symbols-outlined">
+            content_copy
+        </span>
+        <span class="material-symbols-outlined">
+            cut
+        </span>
+        <span class="material-symbols-outlined">
+            content_paste
+        </span>
+
+        <select class="font-family-properties">
+            <option value="monospace">Monospace</option>
+            <option value="sans-serif">Sans-Serif</option>
+            <option value="fantasy">Fantasy</option>
+            <option value="cursive">Cursive</option>
+        </select>
+
+        <select class="font-size-properties">
+            <option value="14">14</option>
+            <option value="16">16</option>
+            <option value="18">18</option>
+            <option value="20">20</option>
+        </select>
+
+        <span class="material-symbols-outlined bold">
+            format_bold
+        </span>
+        <span class="material-symbols-outlined italic">
+            format_italic
+        </span>
+        <span class="material-symbols-outlined underline">
+            format_underlined
+        </span>
+        <span class="material-symbols-outlined alignment">
+            format_align_left
+        </span>
+        <span class="material-symbols-outlined alignment">
+            format_align_center
+        </span>
+        <span class="material-symbols-outlined alignment">
+            format_align_right
+        </span>
+        <div class="font-color-picker-container">
+            <input type="color" class="font-color-picker">
+            <span class="material-symbols-outlined">
+                format_color_text
+            </span>
+        </div>
+        <div class="cell-color-picker-container">
+            <input type="color" class="cell-color-picker">
+            <span class="material-symbols-outlined">
+                format_color_fill
+            </span>
+        </div>
+    </div>
+
+    <div class="formula-actions-container">
+
+        <input type="text" readonly class="address-bar">
+        <img class="formula-icon"
+            src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAB4AAAAeCAYAAAA7MK6iAAAACXBIWXMAAAsTAAALEwEAmpwYAAABu0lEQVR4nO3Wu2sWQRTG4ScoAdEiGAsRlRDxhiA2WghC/AMsFCwisbKykjRqI9h4A8FKwUqEKCgoeAFF0EYkXbx0ghBNEVJEUfFWeGNghMOQ7/s2wV1S5IVhd8/Ou7+d3TlzhgXNc/XiFF7hK75jFDvrhG7FFD7hHv6E9gFL64CuxnSGXMIW/Crgq+oA3w6AfTl2PMSu1gHdjN8BsjLcSyPfjq46wGcDNP3fxvQ8gMeagi7BzwC+0RR4RzFzT9cJu1XAWrW3/xs8URF8U416EkAppXo0pOkAftcUdG3xae+36NePCxjHFzwKy+ciXMzxtNRW0p6KM/oITuJF6Hs93zsfYp+rgk8U4MEO/ftD4UjlcgA/gv/yXNOqr4LnWej/Ons2YJtZaDw85M0cvtKZ2cD+qa8YbfpXVTQQPGln0labZihth4r83djBvwsr8BDfsi+t8ctbmc61KObXQnykDfRAqNXpeAyPg/fgTKauYtalthvL8DFfT7R762ICjua8PRxiUxjG0XKzEGttag9wJZ+/xDrttTdv9J5iTY5152ekvJ3MC8/+0rged/E+jz6N8A6GsLgDdEHzW38BZryxRHaekpkAAAAASUVORK5CYII=">
+        <input type="text" class="formula-bar">
+    </div>
+
+
+    <div class="grid-container">
+        <div class="top-left-dummy"></div>
+        <div class="address-column-container"></div>
+        <div class="cells-container">
+            <div class="address-row-container"></div>
+        </div>
+    </div>
+
+
+    <div class="sheet-container">
+        <div class="sheet-add-icon">
+            <span class="material-symbols-outlined">
+                post_add
+            </span>
+        </div>
+
+        <div class="sheets-folder-container">
+            <div class="sheet-folder">Sheet 1</div>
+        </div>
+    </div>
+
+    <script src="./initial.js"></script>
+    <script src="./grid-setup.js"></script>
+    <script src="./cell-properties.js"></script>
+    <script src="formula-action.js"></script>
+</body>
+
+</html>
