@@ -65,15 +65,6 @@ function createCellPropertiesStorage() {
      * @property {String} value
      */
     /**
-     * 
-     * @param {Number} row
-     * @param {Number} column
-     * @param {cellProperties} cellProperties
-     */
-    function setter(row, column, cellProperties) {
-        cellsProperties[row][column] = cellProperties
-    }
-    /**
      * @callback setterCallback
      * @param {cellProperties} previous
      * @returns {cellProperties}}
@@ -82,10 +73,12 @@ function createCellPropertiesStorage() {
      * 
      * @param {Number} row 
      * @param {Number} column 
-     * @param {setterCallback}
+     * @param {setterCallback | cellProperties} cb
      */
     function setter(row, column, cb) {
-        cellsProperties[row][column] = cb(cellsProperties[row][column])
+        if (typeof cb === 'function')
+            cellsProperties[row][column] = cb(cellsProperties[row][column])
+        else cellsProperties[row][column] = cb
     }
 
     return {
