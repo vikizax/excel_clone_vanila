@@ -45,7 +45,9 @@ function createCellPropertiesStorage() {
                 fontSize: "14",
                 fontColor: "#000000",
                 BGColor: "#000000",
-                value: ""
+                value: "",
+                formula: "",
+                children: []
             }
             rowData.push(cellProperties)
         }
@@ -63,6 +65,8 @@ function createCellPropertiesStorage() {
      * @property {String} fontColor
      * @property {String} BGColor
      * @property {String} value
+     * @property {String} formula
+     * @property {String[]} children
      */
     /**
      * @callback setterCallback
