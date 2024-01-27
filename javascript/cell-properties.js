@@ -10,7 +10,6 @@ function getActiveCell(address) {
     return { row, column, cell }
 }
 
-
 // adding listener to the proptery actions
 boldBtn.addEventListener('click', () => {
     const { cell, column, row } = getActiveCell(addressBar.value)

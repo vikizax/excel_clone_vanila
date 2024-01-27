@@ -29,12 +29,11 @@ function evaluateValue(value) {
     return eval(decodedFormula)
 }
 
-/**
- * 
+/** 
  * @param {String} childAddress 
  */
-function addChildToParent(parentAddress, childAddress) {
-    const encodedFormula = parentAddress.split(" ");
+function addChildToParent(formula, childAddress) {
+    const encodedFormula = formula.split(" ");
     for (let i = 0; i < encodedFormula.length; i++) {
         const pAddress = encodedFormula[i]
         const asciiValue = pAddress.charCodeAt(0);
@@ -44,7 +43,50 @@ function addChildToParent(parentAddress, childAddress) {
                 prev.children.push(childAddress)
                 return prev
             })
+
         }
+    }
+}
+
+/**
+ * 
+ * @param {String} oldFormula 
+ * @param {String} childAddress 
+ */
+function removeChildFromParent(oldFormula, childAddress) {
+    const endcodedFormula = oldFormula.split(" ")
+    for (let i = 0; i < endcodedFormula.length; i++) {
+        const pAddress = endcodedFormula[i]
+        const asciiValue = pAddress.charCodeAt(0)
+        if (65 <= asciiValue && 90 >= asciiValue) {
+            const { row, column } = getActiveCell(pAddress)
+            const { children } = getCellProperties(row, column)
+            const toRemoveIdx = children.indexOf(childAddress)
+            if (toRemoveIdx === -1) continue
+            setCellProperties(row, column, (prev) => {
+                prev.children.splice(toRemoveIdx, 1)
+                return prev
+            })
+        }
+    }
+
+}
+
+/**
+ * 
+ * @param {String} parentAddress 
+ */
+function updateParentChildrenValue(parentAddress) {
+    const { row, column } = getActiveCell(parentAddress)
+    const { children } = getCellProperties(row, column);
+    for (let i = 0; i < children.length; i++) {
+        const pAddress = children[i];
+        const { cell, row: cRow, column: cColumn } = getActiveCell(pAddress)
+        const { formula } = getCellProperties(cRow, cColumn)
+        const evaluatedValue = evaluateValue(formula);
+        cell.innerText = evaluatedValue
+        setCellProperties(row, column, (prev) => ({ ...prev, value: evaluatedValue }))
+        updateParentChildrenValue(pAddress)
     }
 }
 
@@ -53,9 +95,16 @@ formulaBar.addEventListener('keydown', e => {
     try {
         if (e.key !== 'Enter' || formulaBar?.value.trim().length === 0) return
         const { cell, row, column } = getActiveCell(addressBar.value)
+        const { formula } = getCellProperties(row, column)
+
+        if (formula !== formulaBar.value) removeChildFromParent(formula, addressBar.value)
+
         setCellProperties(row, column, (prev) => ({ ...prev, formula: formulaBar.value }))
-        cell.innerText = evaluateValue(formulaBar.value);
+        const evaluatedValue = evaluateValue(formulaBar.value);
+        cell.innerText = evaluatedValue
+        setCellProperties(row, column, (prev) => ({ ...prev, value: evaluatedValue }))
         addChildToParent(formulaBar.value, addressBar.value)
+        updateParentChildrenValue(addressBar.value)
     } catch (e) {
         console.error(e)
     }

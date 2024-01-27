@@ -96,8 +96,9 @@ function createCellPropertiesStorage() {
             return cellsProperties[row][column]
         },
 
-        setCellProperties: setter
+        setCellProperties: setter,
+        getAllCellsProperties: () => cellsProperties
     }
 }
 
-const { getCellProperties, setCellProperties } = createCellPropertiesStorage()
+const { getCellProperties, setCellProperties, getAllCellsProperties } = createCellPropertiesStorage()
