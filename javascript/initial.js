@@ -7,7 +7,7 @@ const addressColumnContainer = document.querySelector('.address-column-container
 const addressRowContainer = document.querySelector('.address-row-container');
 const addressBar = document.querySelector('.address-bar');
 
-
+const formulaBar = document.querySelector('.formula-bar')
 
 // cell properties action selectors
 const boldBtn = document.querySelector('.bold')
@@ -28,6 +28,15 @@ const rightAlignBtn = alignment[2];
 const ACTIVE_COLOR_PROP = '#d1d8e0'
 const IN_ACTIVE_COLOR_PROP = '#ecf0f1'
 
+/**
+ * 
+ * @param {Number} row 
+ * @param {Number} column 
+ * @returns {String}
+ */
+function getCellAddress(row, column) {
+    return `${String.fromCharCode(65 + column)}${row + 1}`
+}
 
 function createCellPropertiesStorage() {
     const cellsProperties = []

@@ -4,7 +4,20 @@ for (let row = 0; row < rows; row++) {
         const cell = document.querySelector(`.cell[data-row-id='${row}'][data-column-id='${column}']`)
         cell.addEventListener('blur', () => {
             const htmlEditedContent = cell.textContent
+
+            const { value, formula } = getCellProperties(row, column)
+
+            const currentActiveAddress = addressBar.value;
+
+            if (htmlEditedContent === value) return;
+
             setCellProperties(row, column, (prev) => ({ ...prev, value: htmlEditedContent }))
+
+            removeChildFromParent(formula, getCellAddress(row, column))
+
+            setCellProperties(row, column, (prev) => ({ ...prev, formula: '' }))
+
+            updateParentChildrenValue(currentActiveAddress)
         })
     }
 }
@@ -12,6 +25,7 @@ for (let row = 0; row < rows; row++) {
 /**
  * 
  * @param {String} value 
+ * @returns {Number}
  */
 function evaluateValue(value) {
     const encodedFormula = value.split(" ");
@@ -85,12 +99,12 @@ function updateParentChildrenValue(parentAddress) {
         const { formula } = getCellProperties(cRow, cColumn)
         const evaluatedValue = evaluateValue(formula);
         cell.innerText = evaluatedValue
-        setCellProperties(row, column, (prev) => ({ ...prev, value: evaluatedValue }))
+        setCellProperties(cRow, cColumn, (prev) => ({ ...prev, value: evaluatedValue + '' }))
         updateParentChildrenValue(pAddress)
     }
 }
 
-const formulaBar = document.querySelector('.formula-bar')
+
 formulaBar.addEventListener('keydown', e => {
     try {
         if (e.key !== 'Enter' || formulaBar?.value.trim().length === 0) return
@@ -102,29 +116,10 @@ formulaBar.addEventListener('keydown', e => {
         setCellProperties(row, column, (prev) => ({ ...prev, formula: formulaBar.value }))
         const evaluatedValue = evaluateValue(formulaBar.value);
         cell.innerText = evaluatedValue
-        setCellProperties(row, column, (prev) => ({ ...prev, value: evaluatedValue }))
+        setCellProperties(row, column, (prev) => ({ ...prev, value: evaluatedValue + '' }))
         addChildToParent(formulaBar.value, addressBar.value)
         updateParentChildrenValue(addressBar.value)
     } catch (e) {
         console.error(e)
     }
 })
-
-/**
- * 
- * @param {HTMLDivElement} cell 
- * @param {Number} row
- * @param {Number} column
- */
-function setupInitialFormulaBarValue(cell, row, column) {
-    cell.addEventListener('click', () => {
-        const { formula } = getCellProperties(row, column)
-        formulaBar.value = formula ?? '';
-    })
-}
-for (let row = 0; row < rows; row++) {
-    for (let column = 0; column < columns; column++) {
-        const cell = document.querySelector(`.cell[data-row-id='${row}'][data-column-id='${column}']`)
-        setupInitialFormulaBarValue(cell, row, column)
-    }
-}

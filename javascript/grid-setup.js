@@ -18,7 +18,7 @@ function addAddressBarDisplayActionToCell(cell, row, column) {
  */
 function setupInitialActionBtnStyleFromCellProperties(cell, row, column) {
     cell.addEventListener('click', () => {
-        const { bold, italic, underline, alignment, fontSize, fontFamily, fontColor, BGColor } = getCellProperties(row, column)
+        const { bold, italic, underline, alignment, fontSize, fontFamily, fontColor, BGColor, formula } = getCellProperties(row, column)
         boldBtn.style.backgroundColor = bold ? ACTIVE_COLOR_PROP : IN_ACTIVE_COLOR_PROP
         italicBtn.style.backgroundColor = italic ? ACTIVE_COLOR_PROP : IN_ACTIVE_COLOR_PROP
         underlineBtn.style.backgroundColor = underline ? ACTIVE_COLOR_PROP : IN_ACTIVE_COLOR_PROP
@@ -30,6 +30,7 @@ function setupInitialActionBtnStyleFromCellProperties(cell, row, column) {
         fontColorInput.value = fontColor
         fontColorInputIcon.style.color = fontColor
         BGColorInputIcon.style.color = BGColor
+        formulaBar.value = formula
     })
 }
 
